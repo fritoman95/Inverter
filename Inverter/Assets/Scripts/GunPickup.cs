@@ -2,13 +2,15 @@
 
 public class GunPickup : MonoBehaviour
 {
-    [SerializeField] private float weaponPickupRad;
+    [SerializeField]
+    private float weaponPickupRad;
     public LayerMask layer;
 
     private Collider2D weaponCheck;
 
-    [SerializeField] private GameObject weaponInRange1, weaponInHand;
-    private bool holdingWeapon;
+    [SerializeField]
+    private GameObject weaponInRange1;
+    public bool holdingWeapon;
 
     private void Update()
     {
@@ -18,11 +20,6 @@ public class GunPickup : MonoBehaviour
         if (holdingWeapon == false && weaponInRange1 != null && Input.GetKeyDown(KeyCode.E))
         {
             WeaponPickup();
-        }
-
-        else if(holdingWeapon == true && Input.GetKeyDown(KeyCode.E))
-        {
-            WeaponDrop();
         }
     }
 
@@ -42,13 +39,10 @@ public class GunPickup : MonoBehaviour
 
     void WeaponPickup()
     {
+        //weaponInHand = weaponInRange1;
         weaponInRange1.gameObject.transform.parent = gameObject.transform;
         holdingWeapon = true;
-    }
 
-    void WeaponDrop()
-    {
-        weaponInRange1.gameObject.transform.parent = null;
-        holdingWeapon = false;
+        Debug.Log("congrats you got a weapon");
     }
 }

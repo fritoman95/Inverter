@@ -15,10 +15,13 @@ public class PlayerDash : MonoBehaviour
     private Vector3 mousepos;
 
     private int maxDashCount = 3;
-    [SerializeField] private int currentDashCount;
+    [SerializeField]
+    private int currentDashCount;
 
-    [SerializeField] private float maxTimer;
-    [SerializeField] private float currentTimer;
+    [SerializeField]
+    private float maxTimer;
+    [SerializeField]
+    private float currentTimer;
 
     private void Start()
     {

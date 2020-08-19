@@ -15,7 +15,6 @@ public class Player_Movement : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
     }
 
-
     private void Update()
     {
         //calls code to flip the character

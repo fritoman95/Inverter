@@ -254,9 +254,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunIsHeld: 0
   firePoint: {fileID: 2808186690837614857}
-  bulletPrefab: {fileID: 6785628241678545189, guid: b8771bc035ff9684194ef7868407c65a,
+  normalBulletPref: {fileID: 6785628241678545189, guid: b8771bc035ff9684194ef7868407c65a,
+    type: 3}
+  darkBulletPref: {fileID: 6620206882659269614, guid: 05edb5146e9f404439be7599267dc76b,
+    type: 3}
+  lightBulletPref: {fileID: 2653448434333878548, guid: 24342440f96e2884d8aa3ae3ae00f03b,
     type: 3}
   bulletForce: 50
+  isNormal: 0
+  isDark: 0
+  isLight: 0
   playerPos: {fileID: 2808186691267694759}
   FireRateMax: 0.5
   FireRateMin: 0

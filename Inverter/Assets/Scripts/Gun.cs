@@ -6,8 +6,18 @@ public class Gun : MonoBehaviour
 
     [SerializeField]
     private Transform firePoint;
-    public GameObject bulletPrefab;
+    public GameObject normalBulletPref;
+    public GameObject darkBulletPref;
+    public GameObject lightBulletPref;
     public float bulletForce = 20;
+
+    //bullet types
+    [SerializeField]
+    private bool isNormal;
+    [SerializeField]
+    private bool isDark;
+    [SerializeField]
+    private bool isLight;
 
     //gun rotation;
     private Rigidbody2D rb;
@@ -24,13 +34,23 @@ public class Gun : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         FireRateMin = FireRateMax;
+
+        isNormal = true;
     }
 
 
-    private void Update()
+    public void Update()
     {
         //checks that the gun is being held by the player;
         IsHeld();
+
+        if(gunIsHeld)
+        {
+            if (Input.GetMouseButtonDown(1))
+            {
+                AmmoTypeSwitch();
+            }
+        }
 
         if (gunIsHeld)
         {
@@ -54,20 +74,105 @@ public class Gun : MonoBehaviour
         rb.rotation = angle;
     }
 
-    void Shoot()
+    public void Shoot()
     {
-        FireRateMin -= Time.deltaTime * 1;
-
-        if(FireRateMin < 0)
+        if(isNormal == true)
         {
-            GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-            rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
+            if (FireRateMin == FireRateMax)
+            {
+                GameObject bullet = Instantiate(normalBulletPref, firePoint.position, firePoint.rotation);
+                Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+                rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
 
-            FireRateMin = FireRateMax;
+                FireRateMin -= Time.deltaTime * 1;
+            }
+
+            else if (FireRateMin != FireRateMax)
+            {
+                FireRateMin -= Time.deltaTime * 1;
+
+                if (FireRateMin <= 0)
+                {
+                    FireRateMin = FireRateMax;
+                }
+            }
         }
 
+        else if(isDark == true)
+        {
+            if (FireRateMin == FireRateMax)
+            {
+                GameObject bullet = Instantiate(darkBulletPref, firePoint.position, firePoint.rotation);
+                Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+                rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
+
+                FireRateMin -= Time.deltaTime * 1;
+            }
+
+            else if (FireRateMin != FireRateMax)
+            {
+                FireRateMin -= Time.deltaTime * 1;
+
+                if (FireRateMin <= 0)
+                {
+                    FireRateMin = FireRateMax;
+                }
+            }
+        }
+
+        else if(isLight == true)
+        {
+            if (FireRateMin == FireRateMax)
+            {
+                GameObject bullet = Instantiate(lightBulletPref, firePoint.position, firePoint.rotation);
+                Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+                rb.AddForce(firePoint.right * bulletForce, ForceMode2D.Impulse);
+
+                FireRateMin -= Time.deltaTime * 1;
+            }
+
+            else if (FireRateMin != FireRateMax)
+            {
+                FireRateMin -= Time.deltaTime * 1;
+
+                if (FireRateMin <= 0)
+                {
+                    FireRateMin = FireRateMax;
+                }
+            }
+        }
     }
+
+    void AmmoTypeSwitch()
+    {
+        if (isNormal == true)
+        {
+            isNormal = false;
+            isDark = true;
+            isLight = false;
+
+            Debug.Log("Using Dark Ammo");
+        }
+
+        else if (isDark == true)
+        {
+            isNormal = false;
+            isDark = false;
+            isLight = true;
+
+            Debug.Log("Using light Ammo");
+        }
+
+        else if (isLight == true)
+        {
+            isNormal = true;
+            isDark = false;
+            isLight = false;
+
+            Debug.Log("Using normal Ammo");
+        }
+    }
+
 
     void IsHeld()
     {

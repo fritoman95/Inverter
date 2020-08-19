@@ -299,4 +299,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   weaponInRange1: {fileID: 0}
-  weaponInHand: {fileID: 0}
+  holdingWeapon: 0
