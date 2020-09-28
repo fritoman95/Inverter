@@ -4,13 +4,17 @@ public class GunPickup : MonoBehaviour
 {
     [SerializeField]
     private float weaponPickupRad;
+
+    [SerializeField]
     public LayerMask layer;
 
     private Collider2D weaponCheck;
 
     [SerializeField]
     private GameObject weaponInRange1;
-    public bool holdingWeapon;
+    
+    [SerializeField]
+    private bool holdingWeapon;
 
     private void Update()
     {
@@ -22,7 +26,6 @@ public class GunPickup : MonoBehaviour
             WeaponPickup();
         }
     }
-
 
     void WeaponInRangeCheck()
     {

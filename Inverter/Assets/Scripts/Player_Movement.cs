@@ -21,7 +21,6 @@ public class Player_Movement : MonoBehaviour
         FlipCharacter();
     }
 
-
     private void FixedUpdate()
     {
         //calls to move character in fixedUpdate

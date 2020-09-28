@@ -14,21 +14,28 @@ public class PlayerDash : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3 mousepos;
 
-    private int maxDashCount = 3;
-    [SerializeField]
-    private int currentDashCount;
+    public int maxDashCount = 3;
+
+    public int currentDashCount;
 
     [SerializeField]
-    private float maxTimer;
+    public float maxTimer;
     [SerializeField]
-    private float currentTimer;
+    public float currentTimer;
+
+    private TrailRenderer trail;
+
+    [SerializeField]
+    private DashUI dash;
+
 
     private void Start()
     {
         currentDashCount = maxDashCount;
 
+        //currentTimer = maxTimer;
 
-        currentTimer = maxTimer;
+        trail = GetComponent<TrailRenderer>();
     }
 
     // Update is called once per frame
@@ -82,13 +89,15 @@ public class PlayerDash : MonoBehaviour
                 }
             }
         }
-
         DashTimer();
     }
 
     //Dash movement code
     public void Playerdash()
     {
+        trail.enabled = true;
+        Physics2D.IgnoreLayerCollision(10, 11);
+
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, dashTime * Time.deltaTime);
 
         if (transform.position == targetPosition)
@@ -97,28 +106,34 @@ public class PlayerDash : MonoBehaviour
             canDash = true;
 
             currentDashCount = currentDashCount - 1;
+
+            Physics2D.IgnoreLayerCollision(10, 11, false);
+
+            trail.enabled = false;
+
+            dash.DecreaseDash();
         }
     }
-
 
     private void DashTimer()
     {
         if(currentDashCount < maxDashCount)
         {
-            if(currentTimer > 0)
+            if(currentTimer >= 0)
             {
-                currentTimer -=  1 * Time.deltaTime;
+                currentTimer += 1 * Time.deltaTime;
 
-                if(currentTimer <= 0)
+                if(currentTimer >= maxTimer)
                 {
+                    currentTimer = 0;
+
                     currentDashCount = currentDashCount + 1;
 
-                    currentTimer = maxTimer;
+                    dash.IncreaseDash();
                 }
             }
         }
     }
-
 
     private void OnDrawGizmos()
     {

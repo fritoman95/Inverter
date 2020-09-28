@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Gun
+  - Enemy
+  - DarkEnemy
+  - LightEnemy
+  - Bullet
+  - DarkAmmoDrop
+  - LightAmmoDrop
+  - DarkAmmoCounter
+  - LightAmmoCounter
   layers:
   - Default
   - TransparentFX
@@ -17,7 +25,7 @@ TagManager:
   - Gun
   - PlayerBullets
   - Player
-  - 
+  - Enemy
   - 
   - 
   - 
